@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Deprecated editor</title>
+	</head>
+	<body>
+		<h1>This site has been deprecated</h1>
+		<p>
+			Please use the new live editor at
+			<a id="live" href="https://mermaid.live/edit">mermaid.live</a>
+		</p>
+
+		<p>
+			If you want to continue using the old editor,
+			<a id="old" href="/deprecated-editor/">click here</a>.
+			<br />
+			Please note that the old editor is no longer maintained and is on a
+			<span id="age">2</span> year old version of Mermaid.
+		</p>
+	</body>
+	<script>
+		let liveURL = 'https://mermaid.live/edit';
+		let oldURL = 'https://mermaid-js.github.io/docs/deprecated-editor/';
+
+		const base = 'https://mermaid.live';
+		// Handle old live editor links and redirect to new version
+		oldURL += window.location.hash;
+		const hash = window.location.hash.split('/');
+		let newURL = 'edit';
+		if (hash.length > 2) {
+			newURL = `${hash[1]}#${hash[2]}`;
+		}
+		liveURL = `${base}/${newURL}`;
+
+		function calculateAge() {
+			let diff = (new Date().getTime() - new Date(2021, 3, 25).getTime()) / 1000;
+			diff /= 60 * 60 * 24;
+			return Math.abs(Math.round(diff / 36.525)) / 10;
+		}
+
+		document.getElementById('live').setAttribute('href', liveURL);
+		document.getElementById('old').setAttribute('href', oldURL);
+		document.getElementById('age').innerText = calculateAge();
+	</script>
+</html>
